@@ -1,18 +1,19 @@
-const express = require("express")
-const connect = require("./connect")
-const cors = require("cors")
-const posts = require("./postRoutes")
+const express = require("express");
+const connect = require("./connect");
+const cors = require("cors");
+const posts = require("./postRoutes");
+const users = require("./userRoutes");
 
-const app = express()
-const PORT = 3000
+const app = express();
+const PORT = 3000;
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
-app.use(posts)
+app.use(posts);
+app.use(users);
 
-
-app.listen(PORT, ()=>{
-    connect.connectToServer()
-    console.log(`Server is running on port ${PORT}`)
-})  
+app.listen(PORT, () => {
+  connect.connectToServer();
+  console.log(`Server is running on port ${PORT}`);
+});

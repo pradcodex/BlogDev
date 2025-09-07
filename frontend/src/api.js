@@ -29,3 +29,20 @@ export async function deletePosts(id) {
   const response = await axios.delete(`${URL}/posts/${id}`);
   return response;
 }
+
+export async function getUser(id) {
+  const response = await axios.get(`${URL}/users/${id}`);
+  if (response.status === 200) {
+    return response.data;
+  } else {
+    return;
+  }
+}
+export async function createUser(user) {
+  const response = await axios.post(`${URL}/users/`, user);
+  return response;
+}
+export async function updateUser(id, user) {
+  const response = await axios.put(`${URL}/users/${id}`, user);
+  return response;
+}

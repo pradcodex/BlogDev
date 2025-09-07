@@ -35,7 +35,7 @@ postRoutes.route("/posts").post(async (request, response) => {
   let db = database.getDb();
   let mongoObject = {
     title: request.body.title,
-    description: request.body.author,
+    description: request.body.description,
     content: request.body.content,
     author: request.body.author,
     dateCreated: request.body.dateCreated,
@@ -50,7 +50,7 @@ postRoutes.route("/posts/:id").put(async (request, response) => {
   let mongoObject = {
     $set: {
       title: request.body.title,
-      description: request.body.author,
+      description: request.body.description,
       content: request.body.content,
       author: request.body.author,
       dateCreated: request.body.dateCreated,

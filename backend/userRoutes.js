@@ -2,13 +2,16 @@ const express = require("express");
 const database = require("./connect");
 const ObjectId = require("mongodb").ObjectId;
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken")
+require("dotenv").config({ path: "./config.env" });
+
 const SALT_ROUNDS = 6;
 let userRoutes = express.Router();
 
 // Retreive All
 userRoutes.route("/users").get(async (request, response) => {
   let db = database.getDb();
-  let data = await db.collection("users").find({}).toArray();
+  let data = await db.collection("users").find({}).toArray(); //db mongodb was not updating coz of not using await
   if (data.length > 0) {
     response.json(data);
   } else {
@@ -35,7 +38,7 @@ userRoutes.route("/users").post(async (request, response) => {
 
   const takenEmail = await db
     .collection("users")
-    .findOne({ name: request.body.email });
+    .findOne({ email: request.body.email });
 
   if (takenEmail) {
     response.json({ msg: "email is already taken" });
@@ -79,6 +82,28 @@ userRoutes.route("/users/:id").delete(async (request, response) => {
     .collection("users")
     .deleteOne({ _id: new ObjectId(request.params.id) });
   response.json(data);
+});
+
+//Login route
+userRoutes.route("/users/login").post(async (request, response) => {
+  let db = database.getDb();
+
+  const user = await db.collection("users").findOne({ email: request.body.email });
+
+  if (user) {
+    let confirmation = await bcrypt.compare(
+      request.body.password,
+      user.password
+    );
+    if (confirmation) {
+      const token = jwt.sign(user, process.env.SECRETKEY, { expiresIn: "1h" })
+      response.json({ success: true, token });
+    } else {
+      response.json({ success: false, message: "Incorrect password" });
+    }
+  } else {
+    response.json({ success: false, message: "user not found" });
+  }
 });
 
 module.exports = userRoutes;

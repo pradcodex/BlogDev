@@ -14,7 +14,7 @@ export function CreateUser() {
   async function handleSubmit(e) {
     e.preventDefault();
     let response = await createUser(user);
-    if (response.status !== 200) {
+    if (response.status !== 200) { // when checking if condition it must be .status
       alert("user account could not be created");
     }
   }
@@ -31,14 +31,15 @@ export function CreateUser() {
       <input
         placeholder="Email"
         onChange={handleChange}
-        email="email"
+        name="email"
         required
         maxLength={50}
       />
       <input
         placeholder="Password"
         onChange={handleChange}
-        password="password"
+        name="password"
+        type="password"
         required
         maxLength={10}
       />

@@ -9,9 +9,21 @@ import { Profile } from "./pages/Profile";
 import { ReadBlog } from "./pages/ReadBlog";
 import { Navbar } from "./components/navbar";
 import { Layout } from "./components/Layout";
+import { useEffect } from "react";
+import axios from 'axios'
+
 
 function App() {
   //Pages
+
+  useEffect(() => {
+    let token = sessionStorage.getItem("User")
+    if (token) {
+      // axios.defaults.headers.common["Authorization"] = `Bearer ${response}`
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+    }
+  }, [])
+
 
   //Home page(filter by recents)
   //ReadBlog
@@ -19,7 +31,6 @@ function App() {
   //Profile
   //About
   //Contact
-
   return (
     <Router>
       <Routes>
@@ -36,5 +47,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;

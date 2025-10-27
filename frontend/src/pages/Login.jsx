@@ -1,7 +1,7 @@
 import { verifyUser } from "../api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
-
+import axios from "axios";
 
 export function Login() {
     const [user, setUser] = useState({
@@ -20,6 +20,7 @@ export function Login() {
         if (response) {
             navigate("/home")
             sessionStorage.setItem("User", response)
+            axios.defaults.headers.common["Authorization"] = `Bearer ${response}`
         }
         else {
             alert("Login failed")
@@ -29,21 +30,8 @@ export function Login() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <input
-                placeholder="Email"
-                onChange={handleChange}
-                name="email"
-                required
-                maxLength={50}
-            />
-            <input
-                placeholder="Password"
-                onChange={handleChange}
-                name="password"
-                type="password"
-                required
-                maxLength={10}
-            />
+            <input placeholder="Email" onChange={handleChange} name="email" required maxLength={50} />
+            <input placeholder="Password" onChange={handleChange} name="password" type="password" required maxLength={10} />
             <button type="submit ">Login</button>
         </form>
     );

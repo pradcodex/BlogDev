@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { createPost } from "../api";
 
 export function CreateBlog() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [content, setContent] = useState("");
+  const [image, setImage] = useState(null);
+
+  const MAX_IMAGE_SIZE = 15000000;
+
+  const inputFile = useRef(null);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -15,6 +20,7 @@ export function CreateBlog() {
       content: content,
       author: null,
       dateCreated: new Date(),
+      image: image,
     };
 
     await createPost(submitObject);
@@ -23,6 +29,25 @@ export function CreateBlog() {
     setTitle("");
     setDescription("");
     setContent("");
+  }
+  function handleFileUpload(e) {
+    const file = e.target.files[0];
+    // console.log(file);
+    const fileExtension = file.name.substring(file.name.lastIndexOf(".") + 1);
+    // console.log(fileExtension);
+    if (fileExtension !== "jpg" && fileExtension !== "png" && fileExtension !== "jpeg") {
+      alert("Invalid file type. Please upload a JPG, PNG, or JPEG file.");
+      inputFile.current.value = ""
+      inputFile.current.type = "file";
+      return;
+    }
+    if(file.size > MAX_IMAGE_SIZE) {
+      alert("File size is too large. Please upload a file smaller than 15MB.");
+      inputFile.current.value = ""
+      inputFile.current.type = "file";
+      return;
+    }
+    setImage(file)
   }
 
   return (
@@ -51,6 +76,8 @@ export function CreateBlog() {
         maxLength={1000}
         required
       />
+      <label>Insert Header Image: </label>
+      <input type="file" onChange={handleFileUpload} ref={inputFile}/>
 
       <button type="submit">Submit</button>
     </form>

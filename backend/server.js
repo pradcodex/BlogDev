@@ -4,6 +4,8 @@ const cors = require("cors");
 const posts = require("./postRoutes");
 const users = require("./userRoutes");
 
+const cloudinaryRoutes = require("./cloudinaryRoutes.js");
+
 const app = express();
 const PORT = 3000;
 
@@ -12,6 +14,9 @@ app.use(express.json());
 
 app.use(posts);
 app.use(users);
+
+app.use('/api', cloudinaryRoutes)
+
 
 app.listen(PORT, () => {
   connect.connectToServer();

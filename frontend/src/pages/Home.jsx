@@ -21,9 +21,7 @@ export function Home() {
     <div className="posts">
       {posts.map((post) => {
         return (
-          <>
-            <BlogCard post={post} />
-          </>
+          <BlogCard key={post._id} post={post} />
         );
       })}
     </div>

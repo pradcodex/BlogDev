@@ -20,17 +20,19 @@ export function Profile() {
     loadUserData()
   }, [])
 
-  return <>
-    <label>Name:</label>
-    <h2>{user.name}</h2>
-    <label>Email:</label>
-    <h2>{user.email}</h2>
-    <label>Join Date:</label>
-    <h2>{user.joinDate}</h2>
-    {posts.map((post) => {
-      return (
-        <BlogCard key={post._id} post={post} />
-      )
-    })}
-  </>;
+  return (
+    <div className="w-1/3">
+      <label className="flex left-0 scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0 mb-2">Name:</label>
+      <h2 className="flex left-0 mb-4">{user.name}</h2>
+      <label className="flex left-0 scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0 mb-2">Email:</label>
+      <h2 className="flex left-0 mb-4">{user.email}</h2>
+      <label className="flex left-0 scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0 mb-2">Join Date:</label>
+      <h2 className="flex left-0 mb-4">{user.joinDate}</h2>
+      {posts.map((post) => {
+        return (
+          <BlogCard post={post} />
+        )
+      })}
+    </div>
+  )
 }

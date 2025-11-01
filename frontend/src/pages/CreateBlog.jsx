@@ -1,5 +1,9 @@
 import { useState, useRef } from "react";
 import { createPost } from "../api";
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
 
 export function CreateBlog() {
   const [title, setTitle] = useState("");
@@ -41,7 +45,7 @@ export function CreateBlog() {
       inputFile.current.type = "file";
       return;
     }
-    if(file.size > MAX_IMAGE_SIZE) {
+    if (file.size > MAX_IMAGE_SIZE) {
       alert("File size is too large. Please upload a file smaller than 15MB.");
       inputFile.current.value = ""
       inputFile.current.type = "file";
@@ -51,35 +55,16 @@ export function CreateBlog() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>Blog Post Title: </label>
-      <input
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        maxLength={100}
-        required
-        type="text"
-      />
-      <label>Blog Description: </label>
-      <input
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        maxLength={200}
-        required
-        type="text"
-      />
-
-      <label>Blog Content: </label>
-      <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        maxLength={1000}
-        required
-      />
-      <label>Insert Header Image: </label>
-      <input type="file" onChange={handleFileUpload} ref={inputFile}/>
-
-      <button type="submit">Submit</button>
+    <form onSubmit={handleSubmit} className="w-1/3">
+      <Label className="flex left-0 p-2">Blog Post Title: </Label>
+      <Input onChange={(e) => setTitle(e.target.value)} maxLength={100} required name="title" />
+      <Label className="flex left-0 p-2">Blog Description: </Label>
+      <Input onChange={(e) => setDescription(e.target.value)} maxLength={200} required name="description" />
+      <Label className="flex left-0 p-2">Blog Content: </Label>
+      <Textarea onChange={(e) => setContent(e.target.value)} maxLength={5000} required name="content" />
+      <Label className="flex left-0 p-2">Insert Header Image: </Label>
+      <Input type="file" onChange={handleFileUpload} ref={inputFile} className="cursor-pointer hover:bg-accent" required />
+      <Button type="submit" className="mt-4">Submit</Button>
     </form>
-  );
+  )
 }

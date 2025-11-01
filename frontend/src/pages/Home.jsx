@@ -1,29 +1,29 @@
-import { getPosts } from "../api";
-import { useState, useEffect } from "react";
-import { BlogCard } from "../components/BlogCard";
+import { getPosts } from "../api"
+import { useState, useEffect } from "react"
+import { BlogCard } from "../components/BlogCard"
 
 export function Home() {
-  const [posts, setPosts] = useState([]);
+
+  const [posts, setPosts] = useState([])
 
   useEffect(() => {
     async function loadAllPosts() {
-      const data = await getPosts();
-      data.sort(
-        (d1, d2) =>
-          new Date(d2.dateCreated).getTime() -
-          new Date(d1.dateCreated).getTime()
-      );
-      setPosts(data);
+      const data = await getPosts()
+      data.sort((d1, d2) => new Date(d2.dateCreated).getTime() - new Date(d1.dateCreated).getTime())
+      setPosts(data)
     }
-    loadAllPosts();
-  }, []);
+    loadAllPosts()
+  }, [])
+
   return (
-    <div className="posts">
-      {posts.map((post) => {
-        return (
-          <BlogCard key={post._id} post={post} />
-        );
-      })}
+    <div className="flex flex-col items-center w-full">
+      <div className="w-1/3 mt-4">
+        {posts.map((post) => {
+          return (
+            <BlogCard key={post._id} post={post} />
+          )
+        })}
+      </div>
     </div>
-  );
+  )
 }

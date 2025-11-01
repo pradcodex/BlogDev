@@ -2,25 +2,12 @@ import { Link } from "react-router-dom";
 
 export function About() {
   return (
-    <div>
-      <h1>About Us</h1>
-      <p>
-        Welcome to our blog! We are passionate about sharing insightful
-        articles, tutorials, and resources on web development, technology, and
-        programming.
-      </p>
-      <p>
-        Our mission is to empower developers of all levels by providing
-        high-quality content, tips, and best practices. Whether you are just
-        starting out or are an experienced professional, you'll find something
-        valuable here.
-      </p>
-      <p>
-        Our team consists of experienced developers, writers, and tech
-        enthusiasts who love to learn and share knowledge. We believe in
-        continuous learning and fostering a supportive community. Create blog{" "}
-        <Link to="/createBlog">Create Blog</Link>
-      </p>
+    <div className="w-1/3">
+      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-2 text-primary">About Us</h1>
+      <p className="leading-7 [&:not(:first-child)]:mt-6 whitespace-pre-wrap text-center">Welcome to our blog website! Here you'll find a collection of articles, stories, and insights on various topics.</p>
+      <p className="leading-7 [&:not(:first-child)]:mt-6 whitespace-pre-wrap text-center">Our platform provides a space for users to share their thoughts, experiences, and expertise through blog posts.</p>
+      <p className="leading-7 [&:not(:first-child)]:mt-6 whitespace-pre-wrap text-center">If you're interested in contributing, feel free to create a new blog by visiting our <Link to="/createBlog">Create Blog</Link> page.</p>
+      <p className="leading-7 [&:not(:first-child)]:mt-6 whitespace-pre-wrap text-center">Explore our content and join our community of writers and readers!</p>
     </div>
-  );
+  )
 }
